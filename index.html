@@ -1,41 +1,326 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+  <meta charset="utf-8">
+  <title>Writing Clean & Maintainable Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>reveal.js</title>
+  <!-- Reveal.js -->
+  <link rel="stylesheet" href="dist/reveal.css" />
+  <link rel="stylesheet" href="dist/theme/black.css" id="theme" />
+  <link rel="stylesheet" href="plugin/highlight/monokai.css" />
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+  <!-- Tailwind CSS CDN (for quick styling) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section data-visibility="hidden">Slide X</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+  <style>
+    .reveal section {
+      padding: 60px 100px;
+    }
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    .bg-card {
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    /* Subtle Zoom Effect on slides */
+    .reveal .slides section {
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+
+    .reveal .slides section.present {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .reveal .slides section.past,
+    .reveal .slides section.future {
+      transform: scale(0.96);
+      opacity: 0.5;
+    }
+
+    /* Code blocks nicer */
+    pre code {
+      font-size: 0.9em !important;
+      line-height: 1.4 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 1: Title -->
+<section data-background-gradient="linear-gradient(to right, #0f172a, #1e293b)">
+  <h1 class="text-7xl font-black text-white leading-tight">
+    Writing Clean & Maintainable Code
+  </h1>
+
+  <div class="mt-14 text-gray-300 text-2xl">
+    Adesemowo Emmanuel • @Hade_emm • KD Session
+  </div>
+
+  <div class="mt-6 text-gray-400 text-xl">
+    For Every Developer in Tech
+  </div>
+
+  <p class="mt-20 text-3xl italic text-cyan-400">
+    Code that lasts, teams that thrive 🚀
+  </p>
+</section>
+
+<!-- SLIDE 2: What is Clean & Maintainable Code? (vertical nest) -->
+<section>
+
+  <section data-background-gradient="linear-gradient(to right, #111827, #1f2937)">
+    <h2 class="text-5xl font-bold text-blue-400 mb-12">
+      What Does “Clean & Maintainable” Actually Mean?
+    </h2>
+
+    <ul class="text-2xl space-y-6 text-gray-200">
+      <li>Not just “it works”</li>
+      <li>Readable by others (and future you)</li>
+      <li>Easy to change without fear</li>
+      <li>Scales with team & time</li>
+      <li>Reduces bugs & onboarding pain</li>
+    </ul>
+
+    <p class="mt-20 text-xl text-gray-500 text-center">
+      (Press ↓ for deeper dive)
+    </p>
+  </section>
+
+  <section data-background-gradient="linear-gradient(to right, #0f172a, #1e293b)">
+    <h2 class="text-5xl font-bold text-blue-400 mb-16">
+      Clean Code = Understandable & Changeable
+    </h2>
+
+    <div class="text-center max-w-5xl mx-auto">
+      <p class="text-3xl text-white font-bold">
+        Code is read far more than written.
+      </p>
+      <p class="mt-8 text-2xl text-gray-300">
+        If it’s hard to understand → it’s expensive to maintain.
+      </p>
+      <p class="mt-6 text-2xl text-cyan-300 font-bold">
+        Goal: Self-documenting systems
+      </p>
+    </div>
+  </section>
+
+</section>
+
+<!-- SLIDE 3: Why It Matters -->
+<section data-background-gradient="linear-gradient(to right, #0f172a, #1e293b)">
+  <h2 class="text-5xl font-bold text-blue-400 mb-12">
+    Why Care About Maintainability?
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-xl">
+    <div class="bg-card">
+      <h3 class="text-3xl text-cyan-400 mb-6">For You</h3>
+      <ul class="space-y-4 text-gray-200">
+        <li>Less debugging hell</li>
+        <li>Confident refactoring</li>
+        <li>Future-you thanks you</li>
+      </ul>
+    </div>
+
+    <div class="bg-card">
+      <h3 class="text-3xl text-cyan-400 mb-6">For Team</h3>
+      <ul class="space-y-4 text-gray-200">
+        <li>Faster onboarding</li>
+        <li>Fewer bugs from changes</li>
+        <li>Better collaboration</li>
+      </ul>
+    </div>
+
+    <div class="bg-card">
+      <h3 class="text-3xl text-cyan-400 mb-6">For Business</h3>
+      <ul class="space-y-4 text-gray-200">
+        <li>Lower long-term costs</li>
+        <li>Faster feature delivery</li>
+        <li>Scalable product</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: Core Principles (Part 1) -->
+<section data-background-gradient="linear-gradient(to right, #111827, #000000)">
+  <h2 class="text-5xl font-bold text-blue-400 mb-12">
+    Core Principles of Clean Code
+  </h2>
+
+  <ul class="text-2xl space-y-6 text-gray-200 max-w-5xl mx-auto">
+    <li><strong>Meaningful Names</strong> — variables, functions, classes tell what & why</li>
+    <li><strong>Small Functions/Methods</strong> — do one thing, short & focused</li>
+    <li><strong>Single Responsibility</strong> — one class/module = one job (SRP)</li>
+    <li><strong>DRY (Don't Repeat Yourself)</strong> — avoid duplication</li>
+    <li><strong>Consistent Style</strong> — formatting, indentation, naming across project</li>
+  </ul>
+</section>
+
+<!-- SLIDE 5: Core Principles (Part 2) -->
+<section data-background-gradient="linear-gradient(to right, #0f172a, #1e3a8a)">
+  <h2 class="text-5xl font-bold text-blue-300 mb-12">
+    More Principles That Scale
+  </h2>
+
+  <ul class="text-2xl space-y-6 text-gray-200">
+    <li>Modular Design — loose coupling, high cohesion</li>
+    <li>Comments for Why, not What — code explains how</li>
+    <li>Error Handling & Logging — predictable, safe failures</li>
+    <li>Automated Tests — safety net for changes</li>
+    <li>Refactor Ruthlessly — Boy Scout Rule: leave code cleaner</li>
+  </ul>
+
+  <p class="mt-16 text-2xl text-cyan-300 text-center">
+    Simple is durable. Complexity kills maintainability.
+  </p>
+</section>
+
+<!-- SLIDE 6: Bad vs Good Example -->
+<section data-background-gradient="linear-gradient(to right, #111827, #1f2937)">
+  <h2 class="text-5xl font-bold text-blue-400 mb-12">
+    Bad vs Good in Action
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div class="bg-card">
+      <h3 class="text-3xl text-red-400 mb-6">Messy Code</h3>
+      <pre><code class="hljs" data-trim>function p(u) {
+  if (u.age > 18) {
+    // ...
+  } else if (...) {
+    // 200 lines of mixed logic
+  }
+}</code></pre>
+      <p class="mt-4 text-gray-400">Hard to read, test, change</p>
+    </div>
+
+    <div class="bg-card">
+      <h3 class="text-3xl text-green-400 mb-6">Clean Code</h3>
+      <pre><code class="hljs" data-trim>function processUser(user) {
+  if (!isAdult(user)) return denyAccess();
+  validateProfile(user);
+  grantAccess(user);
+}
+
+function isAdult(user) {
+  return user.age >= 18;
+}</code></pre>
+      <p class="mt-4 text-gray-300">Readable, testable, extensible</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: Tools & Habits to Help -->
+<section data-background-gradient="linear-gradient(to right, #065f46, #064e3b)">
+  <h2 class="text-5xl font-bold text-emerald-400 mb-12">
+    Tools & Daily Habits
+  </h2>
+
+  <ul class="text-2xl space-y-6 text-gray-200">
+    <li>Linters & Formatters (Prettier, ESLint, Black, gofmt)</li>
+    <li>Static Analysis (SonarQube, CodeQL)</li>
+    <li>CI/CD with tests & lint checks</li>
+    <li>Code Reviews — focus on clarity & maintainability</li>
+    <li>Refactor in small steps + tests</li>
+  </ul>
+
+  <p class="mt-16 text-2xl text-cyan-300 text-center">
+    Automate the boring parts → focus on thinking
+  </p>
+</section>
+
+<!-- SLIDE 8: Common Traps to Avoid -->
+<section data-background-gradient="linear-gradient(to right, #7f1d1d, #991b1b)">
+  <h2 class="text-5xl font-bold text-white mb-12">
+    What Holds Codebases Back?
+  </h2>
+
+  <ul class="text-2xl space-y-6 text-gray-100">
+    <li>Magic numbers/strings</li>
+    <li>God classes/functions (do everything)</li>
+    <li>Deep nesting & duplication</li>
+    <li>No tests → fear of change</li>
+    <li>Ignoring refactoring debt</li>
+  </ul>
+</section>
+
+<!-- SLIDE 9: How to Start Today -->
+<section data-background-gradient="linear-gradient(to right, #0f172a, #1e293b)">
+  <h2 class="text-5xl font-bold text-blue-400 mb-12">
+    Start Thinking Clean Today
+  </h2>
+
+  <ol class="text-2xl space-y-6 text-gray-200 list-decimal pl-10 max-w-4xl mx-auto">
+    <li>Name everything like it matters</li>
+    <li>Break big functions into small ones</li>
+    <li>Apply DRY & SRP everywhere</li>
+    <li>Write tests before/during changes</li>
+    <li>Review & refactor constantly</li>
+  </ol>
+
+  <p class="mt-16 text-3xl font-bold text-cyan-300 text-center">
+    Small habits → massive impact over time
+  </p>
+</section>
+
+<!-- SLIDE 10: Q&A -->
+<section data-background-gradient="linear-gradient(to right, #000000, #0f172a)">
+  <h1 class="text-6xl font-bold text-white mb-16">
+    Questions?
+  </h1>
+
+  <ul class="text-3xl text-gray-300 space-y-10 max-w-5xl mx-auto">
+    <li>→ What's one clean code habit you'll start using immediately?</li>
+    <li>→ How do you balance "clean" with "ship fast" in real projects?</li>
+    <li>→ Share your worst maintainability horror story 🔥</li>
+  </ul>
+</section>
+
+<!-- SLIDE 11: Thank You -->
+<section data-background-gradient="linear-gradient(to right, #0f172a, #1e293b)">
+  <h1 class="text-7xl font-bold text-white mb-12">
+    Thank You.
+  </h1>
+
+  <p class="text-3xl text-cyan-400">
+    Write code that future devs will love 🚀
+  </p>
+
+  <p class="mt-20 text-xl text-gray-400">
+    Adesemowo Emmanuel • @Hade_emm • March 2026
+  </p>
+</section>
+
+</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    transition: 'slide',
+    transitionSpeed: 'slow',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    width: 1280,
+    height: 720,
+    slideNumber: true,
+    plugins: [ RevealHighlight, RevealNotes ]
+  });
+</script>
+
+</body>
 </html>
