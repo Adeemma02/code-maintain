@@ -61,7 +61,7 @@
   </h1>
 
   <div class="mt-14 text-gray-300 text-2xl">
-    Adesemowo Emmanuel • @Hade_emm • KD Session
+    Adesemowo Emmanuel • 12th March 2026 • KD Session
   </div>
 
   <div class="mt-6 text-gray-400 text-xl">
@@ -185,38 +185,92 @@
 </section>
 
 <!-- SLIDE 6: Bad vs Good Example -->
-<section data-background-gradient="linear-gradient(to right, #111827, #1f2937)">
-  <h2 class="text-5xl font-bold text-blue-400 mb-12">
-    Bad vs Good in Action
-  </h2>
+<section>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-    <div class="bg-card">
-      <h3 class="text-3xl text-red-400 mb-6">Messy Code</h3>
-      <pre><code class="hljs" data-trim>function p(u) {
+  <!-- SLIDE 6A: Messy Code -->
+  <section data-background-gradient="linear-gradient(to right, #111827, #1f2937)">
+    <h2 class="text-5xl font-bold text-red-400 mb-12">
+      Messy Code Example
+    </h2>
+
+    <div class="bg-card max-w-5xl mx-auto">
+      <pre><code class="hljs" data-trim>
+function p(u) {
   if (u.age > 18) {
-    // ...
-  } else if (...) {
-    // 200 lines of mixed logic
+    if (u.status == "active") {
+      console.log("Welcome " + u.name);
+      // grant access
+    } else {
+      console.log("User not active");
+    }
+  } else {
+    console.log("Too young");
   }
-}</code></pre>
-      <p class="mt-4 text-gray-400">Hard to read, test, change</p>
+}
+</code></pre>
+
+      <ul class="mt-8 text-xl text-gray-300 space-y-3">
+        <li class="fragment">❌ Unclear function name (<code>p</code>)</li>
+        <li class="fragment">❌ Unclear variable name (<code>u</code>)</li>
+        <li class="fragment">❌ Nested conditions</li>
+        <li class="fragment">❌ Logic mixed with output</li>
+        <li class="fragment">❌ Hard to test or reuse</li>
+      </ul>
     </div>
 
-    <div class="bg-card">
-      <h3 class="text-3xl text-green-400 mb-6">Clean Code</h3>
-      <pre><code class="hljs" data-trim>function processUser(user) {
-  if (!isAdult(user)) return denyAccess();
-  validateProfile(user);
-  grantAccess(user);
+    <p class="mt-16 text-gray-400 text-xl text-center">
+      Press ↓ to see how we clean this up
+    </p>
+  </section>
+
+  <!-- SLIDE 6B: Clean Code -->
+  <section data-background-gradient="linear-gradient(to right, #0f172a, #1e3a8a)">
+    <h2 class="text-5xl font-bold text-green-400 mb-12">
+      Refactored Clean Code
+    </h2>
+
+    <div class="bg-card max-w-5xl mx-auto">
+      <pre><code class="hljs" data-trim>
+function processUser(user) {
+  if (!isAdult(user)) {
+    return denyAccess("Too young");
+  }
+
+  if (!isActive(user)) {
+    return denyAccess("User not active");
+  }
+
+  welcomeUser(user);
 }
 
 function isAdult(user) {
   return user.age >= 18;
-}</code></pre>
-      <p class="mt-4 text-gray-300">Readable, testable, extensible</p>
+}
+
+function isActive(user) {
+  return user.status === "active";
+}
+
+function welcomeUser(user) {
+  console.log(`Welcome ${user.name}`);
+}
+
+function denyAccess(reason) {
+  console.log(reason);
+}
+</code></pre>
+
+      <ul class="mt-8 text-xl text-gray-300 space-y-3">
+        <li class="fragment">✔ Clear function names</li>
+        <li class="fragment">✔ Each function has one responsibility</li>
+        <li class="fragment">✔ Less nesting</li>
+        <li class="fragment">✔ Easier to test</li>
+        <li class="fragment">✔ More maintainable</li>
+      </ul>
     </div>
-  </div>
+
+  </section>
+
 </section>
 
 <!-- SLIDE 7: Tools & Habits to Help -->
